@@ -19,6 +19,17 @@ $(".btn-primary").click(function(){// upon clicking the START survey button
 });
 */
 
+var userData = {
+	name: '',
+	email: '',
+	html: [],
+	css: [],
+	js: [],
+	htmlSkill: null,
+	cssSkill: null,
+	jsSkill: null,
+	position: "welcome"
+};
 
 
 $(document).ready(function(){
@@ -55,19 +66,49 @@ $(document).ready(function(){
 		else{
 
 			if(validateName( $("#name").val() ) && !validateEmail( $("#exampleInputEmail1").val() )){
-				alert("ERROR: Invalid Name Input.");
+				alert("ERROR: Invalid Email Input.");
 			}
 
 			else if(!validateName( $("#name").val() ) && validateEmail( $("#exampleInputEmail1").val() )){
-				alert("ERROR: Invalid Email Input.");
+				alert("ERROR: Invalid Name Input.");
 			}
 
 			else if(!validateName( $("#name").val() ) && !validateEmail( $("#exampleInputEmail1").val() )){
 				alert("ERROR: Invalid Name & Email Input.");
 			}
-			
 		}
 	});	// 17:17 works
 
+	$(".fet").click(function(event){	// any of the FrontEndTechnology clicked
 
+		var chosen = $(this).text();	// know the one chosen
+
+		if(chosen == "HTML"){
+			// q2a
+			//console.log(chosen);
+			//document.write(chosen);
+			$("#q2").hide();	// hide the element on display
+			$("#q2a").show(); // show the follwing hidden element by-
+			//$("#q2a").attr("display", "block");	// changing value of dispute
+		}
+
+		else if(chosen == "CSS") {
+			// q2b
+			//console.log(chosen);
+			//document.write(chosen);
+			$("#q2").hide();	// hide the element on display
+			$("#q2b").show(); // show the follwing hidden element by-
+			//$("#q2b").attr("display", "block");	// changing value of dispute
+		}
+
+		else{
+			// javascript q2c
+			//console.log(chosen);
+			//document.write(chosen);
+			$("#q2").hide();	// hide the element on display
+			$("#q2c").show(); // show the follwing hidden element by-
+			//$("#q2c").attr("display", "block");	// changing value of dispute
+		}
+
+	});	// 9:26 works
 });
