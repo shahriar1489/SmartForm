@@ -1,9 +1,11 @@
 var userData = {
 	name: '',	// in
 	email: '',	// in
+
 	html: [],	// in
 	css: [],	// in
 	js: [],	// in
+
 	htmlSkill: null,	//
 	cssSkill: null,	//
 	jsSkill: null, //
@@ -22,8 +24,9 @@ $(document).ready(function(){
 		return re.test(email);
 	}
 
-$("#start_button").click(function(event){
+	$("#start_button").click(function(event){
 		$("#welcome").hide();
+		userData.position = "q1";
 		$("#q1").show();
 	});	// 15:24 works
 
@@ -37,6 +40,7 @@ $("#start_button").click(function(event){
 			console.log("EMAIL = " + userData.email);	// 19:32 works
 
 			$("#q1").hide();	// hide the element on display
+			userData.position = "q2";
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 
@@ -78,20 +82,24 @@ $("#start_button").click(function(event){
 
 		if(chosen == "HTML"){
 			$("#q2").hide();	// hide the element on display
+			userData.position = "q2a";
 			$("#q2a").show(); // show the follwing hidden element by-
 		}
 		else if(chosen == "CSS") {
 			$("#q2").hide();	// hide the element on display
+			userData.position = "q2b";
 			$("#q2b").show(); // show the follwing hidden element by-
 		}
 		else{
 			$("#q2").hide();	// hide the element on display
+			userData.position = "q2c";
 			$("#q2c").show(); // show the follwing hidden element by-
 		}
 	});	// 9:26 works
 
 	$("#htmlPrev").click(function(event){	// 00:05 this is okay
 		 var eyeD, i, temp, found = false;
+		 userData.html = [];
 		 userData.html = [];
 		// console.log("LINE 85");
 
@@ -132,23 +140,23 @@ $("#start_button").click(function(event){
 			 }
 		 }
 		 console.log(userData.html);	// 11:50 there is repeat in data storage. cut that off.
+		 console.log(userData.html);
 		 // 18:49 this button will work if and only if there are some responses on record
 		 if( userData.html.length >= 1){
 			 // able the button,  followed by
 			 $("#q2a").hide();	// hide the element on display
- 			 $("#q2").show(); // show the follwing hidden element by-
+			 userData.position = "q2";
+			 $("#q2").show(); // show the follwing hidden element by-
 		 }
 	});
 
 	$("#htmlNext").click(function(event){	// 10:37
 		var eyeD, i, temp, found = false;
 		userData.html = [];
-	//	console.log("LINE 85");
+		//userData.html = [];
 
 		for(i = 111; i <=114; i++)	// push the response if they are selected
 		{
-		//	console.log("LINE 88");
-
 			eyeD = "#" + i.toString();
 			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
 
@@ -170,7 +178,7 @@ $("#start_button").click(function(event){
 			//console.log("LINE 88");
 
 			eyeD = "#" + i.toString();
-			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
+			//console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
 
 			// 17:32 first see if a checkbox is checked or not
 			if( $(eyeD).prop("checked") == true){
@@ -185,12 +193,15 @@ $("#start_button").click(function(event){
 			}
 		}
 		console.log(userData.html);	// 11:50 there is repeat in data storage. cut that off.
+		console.log(userData.html)
 		if( userData.html.length >= 1 && userData.css.length >= 1 && userData.js.length >= 1)	// 16:12 think about this conditional statement
 		{
 			$("#q2a").hide();	// hide the element on display
+			userData.position = "q3";
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2a').hide();
+			userData.position = "q2";
 			$('#q2').show();
 		}
 	});
@@ -240,6 +251,7 @@ $("#start_button").click(function(event){
 		if( userData.css.length >= 1){
 			// able the button,  followed by
 			$("#q2b").hide();	// hide the element on display
+			userData.position = "q2";
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 	});
@@ -293,9 +305,11 @@ $("#start_button").click(function(event){
 		if( userData.html.length >= 1 && userData.css.length >= 1 && userData.js.length >= 1)	// 16:12 think about this conditional statement
 		{
 			$("#q2b").hide();	// hide the element on display
+			userData.position = "q3";
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2b').hide();
+			userData.position = "q2";
 			$('#q2').show();
 		}
 
@@ -346,6 +360,7 @@ $("#start_button").click(function(event){
 		if( userData.html.length >= 1){
 			// able the button,  followed by
 			$("#q2c").hide();	// hide the element on display
+			userData.position = "q2";
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 	});	// 19:06 works
@@ -395,15 +410,18 @@ $("#start_button").click(function(event){
 		if( userData.html.length >= 1 && userData.css.length >= 1 && userData.js.length >= 1)	// 16:12 think about this conditional statement
 		{
 			$("#q2c").hide();	// hide the element on display
+			userData.position = "q3";
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2c').hide();
+			userData.position = "q2";
 			$('#q2').show();
 		}
 	});
 
 	$("#q3Prev").click(function(event){
 		 $("#q3").hide();
+		 userData.position = "q2";
 		 $("#q2").show();
 	});
 
@@ -425,6 +443,7 @@ $("#start_button").click(function(event){
 
 		if(userData.htmlSkill!=null && userData.cssSkill!=null && userData.jsSkill!=null){
 			$("#q3").hide();
+			userData.position = "q2";
 			$("#q2").show();
 		}
 		else{
@@ -449,6 +468,7 @@ $("#start_button").click(function(event){
 
 		if(userData.htmlSkill!=null && userData.cssSkill!=null && userData.jsSkill!=null){
 			$("#q3").hide();
+			userData.position = "thanks";
 			$("#thanks").show();
 		}
 		else{
@@ -458,29 +478,26 @@ $("#start_button").click(function(event){
 
 	$("#viewAns").click(function(event){
 		$("#thanks").hide();
+		userData.position = "showRes";
 		$("#showRes").show();
 	});
 
 	$("#delAns").click(function(event){
 		userData.name= userData.email = userData.htmlSkill = userData.jsSkill = userData.cssSkill= '';
 		userData.html = userData.css = userData.js = [];
-		position = "welcome";
-
 		console.log(userData);
-
-		$("#thanks").hide();
-		$("#welcome").show();
-
 		// clear the text in email and email
 		$("#name").val('');
 		$("#exampleInputEmail1").val('');
 
 		// uncheck the checkbox
-		$("input[name='likeHTML']").removeAttr("checked");	// 21:05
-		$("input[name='likeCSS']").removeAttr("checked");	// 21:05 
-		$("input[name='likeHTML']").removeAttr("checked");	// 21:05
-		// make sure previous answers are unchecked
-		//$("input[name='radio2']:checked").val();	// uncheck the radio buttons
+		$('input[type=checkbox]').prop('checked', false);	// this better work: W O R K S
 
+		// uncheck the radio button
+		$('input[type=radio]').prop('checked', false);
+
+		$("#thanks").hide();
+		userData.position = "welcome";
+		$("#welcome").show();
 	});
 });
