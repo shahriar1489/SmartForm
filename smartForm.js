@@ -12,7 +12,14 @@ var userData = {
 	position: "welcome"	// 19:35 WHAT IS THIS FOR???
 };
 
+var strUserData;
+var showPage;
+//localStorage.setItem("lPos", userData.position);// position
+
 $(document).ready(function(){
+
+	//showPage = localStorage.getItem("lPos");
+	//$("#"+showPage).show();
 
 	function validateName(name){
 		var re = /^[A-z ]+$/;	// 15:04
@@ -27,10 +34,15 @@ $(document).ready(function(){
 	$("#start_button").click(function(event){
 		$("#welcome").hide();
 		userData.position = "q1";
+		localStorage.setItem("lPos", userData.position);// position
 		$("#q1").show();
 	});	// 15:24 works
 
-	$("#q1NextButton").click(function(event){	// 17:06 not working
+	$("#q1NextButton").click(function(event){
+		strUserData = JSON.stringify(userData);
+		console.log("line 37, INITIALLY strUserData = " + strUserData);
+
+		//$(this).prop('disabled', true);
 
 		if(validateEmail( $("#exampleInputEmail1").val()) && validateName( $("#name").val() ))	// check if both input for name and email are valid
 		{
@@ -39,40 +51,43 @@ $(document).ready(function(){
 			console.log("NAME = " + userData.name);
 			console.log("EMAIL = " + userData.email);	// 19:32 works
 
+			//$("#q1NextButton").prop('disabled', false);	// could use DOM here
+
 			$("#q1").hide();	// hide the element on display
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2").show(); // show the follwing hidden element by-
+			//return true;
 		}
 
 		else{
 
-			if(validateName( $("#name").val() ) && !validateEmail( $("#exampleInputEmail1").val() )){
-				//$("#q1NextButton").prop("disabled");
+			if(validateName( $("#name").val() ) && !validateEmail( $("#exampleInputEmail1").val() ))
+			{
+				//$("#q1NextButton").prop("disabled", true);
 				$("#exampleInputEmail1").focus();
 				alert("ERROR: Invalid Email Input.");
-				//$("#warningMsg1").innerHTML("ERROR: Invalid Email Input.");
-				//document.getElementById('warningMsg1').innerHTML="ERROR: Invalid Email Input.";
-				//$('#warningMsg1').fadeOut(5000);
 			}
 
-			else if(!validateName( $("#name").val() ) && validateEmail( $("#exampleInputEmail1").val() )){
-				//$("#q1NextButton").prop("disabled");
+			else if(!validateName( $("#name").val() ) && validateEmail( $("#exampleInputEmail1").val() ))
+			{
+				//$("#q1NextButton").prop("disabled", true);
 				$("#name").focus();
 				alert("ERROR: Invalid Name Input.");
 				//$("#warningMsg1").innerHTML("ERROR: Invalid Name Input.");
-				document.getElementById('warningMsg1').innerHTML="ERROR: Invalid Name Input.";
-				$('#warningMsg1').fadeOut(5000);
-				document.getElementById('warningMsg1').innerHTML=" ";	// 15:33 empty the content
+				//document.getElementById('warningMsg1').innerHTML="ERROR: Invalid Name Input.";
+				//$('#warningMsg1').fadeOut(5000);
+				//document.getElementById('warningMsg1').innerHTML=" ";	// 15:33 empty the content
 			}
 
 			else if(!validateName( $("#name").val() ) && !validateEmail( $("#exampleInputEmail1").val() )){
-				//$("#q1NextButton").prop("disabled");
+				//$("#q1NextButton").prop("disabled", true);
 				$("#name").focus();
 				alert("ERROR: Invalid Name & Email Input.");
 				//$("#warningMsg1").innerHTML("ERROR: Invalid Name & Email Input.");
-				document.getElementById('warningMsg1').innerHTML = "ERROR: Invalid Name & Email Input.";
-				$('#warningMsg1').fadeOut(5000);
-				document.getElementById('warningMsg1').innerHTML = " ";
+				//document.getElementById('warningMsg1').innerHTML = "ERROR: Invalid Name & Email Input.";
+				//$('#warningMsg1').fadeOut(5000);
+				//document.getElementById('warningMsg1').innerHTML = " ";
 			}
 		}
 	});	// 17:17 works
@@ -83,16 +98,19 @@ $(document).ready(function(){
 		if(chosen == "HTML"){
 			$("#q2").hide();	// hide the element on display
 			userData.position = "q2a";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2a").show(); // show the follwing hidden element by-
 		}
 		else if(chosen == "CSS") {
 			$("#q2").hide();	// hide the element on display
 			userData.position = "q2b";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2b").show(); // show the follwing hidden element by-
 		}
 		else{
 			$("#q2").hide();	// hide the element on display
 			userData.position = "q2c";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2c").show(); // show the follwing hidden element by-
 		}
 	});	// 9:26 works
@@ -146,6 +164,7 @@ $(document).ready(function(){
 			 // able the button,  followed by
 			 $("#q2a").hide();	// hide the element on display
 			 userData.position = "q2";
+			 localStorage.setItem("lPos", userData.position);// position
 			 $("#q2").show(); // show the follwing hidden element by-
 		 }
 	});
@@ -198,10 +217,12 @@ $(document).ready(function(){
 		{
 			$("#q2a").hide();	// hide the element on display
 			userData.position = "q3";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2a').hide();
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$('#q2').show();
 		}
 	});
@@ -232,7 +253,7 @@ $(document).ready(function(){
 		for(var i = 221; i <= 224; i++)	// push the response if they are selected
 		{
 			eyeD = "#" + i.toString();
-			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
+			//console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
 
 			// 17:32 first see if a checkbox is checked or not
 			if( $(eyeD).prop("checked") == true){
@@ -252,6 +273,7 @@ $(document).ready(function(){
 			// able the button,  followed by
 			$("#q2b").hide();	// hide the element on display
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 	});
@@ -264,13 +286,11 @@ $(document).ready(function(){
 		for(i = 211; i <=214; i++)	// push the response if they are selected
 		{
 			//console.log("LINE 183");
-
 			eyeD = "#" + i.toString();
-			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
-
+			//console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
 			// 17:32 first see if a checkbox is checked or not
 			if( $(eyeD).prop("checked") == true){
-				 console.log(eyeD + " is checked");
+			//	 console.log(eyeD + " is checked");
 				 userData.css.push(eyeD);
 			}
 			else{	// if the checkbox is unchecked
@@ -286,12 +306,11 @@ $(document).ready(function(){
 			//console.log("LINE 88");
 
 			eyeD = "#" + i.toString();
-			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
+//			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
 
 			// 17:32 first see if a checkbox is checked or not
 			if( $(eyeD).prop("checked") == true){
-
-				 console.log(eyeD + " is checked");
+	//			 console.log(eyeD + " is checked");
 				 userData.css.push(eyeD);
 			}
 			else{	// if the checkbox is unchecked
@@ -306,10 +325,12 @@ $(document).ready(function(){
 		{
 			$("#q2b").hide();	// hide the element on display
 			userData.position = "q3";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2b').hide();
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$('#q2').show();
 		}
 
@@ -361,6 +382,7 @@ $(document).ready(function(){
 			// able the button,  followed by
 			$("#q2c").hide();	// hide the element on display
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 	});	// 19:06 works
@@ -389,8 +411,6 @@ $(document).ready(function(){
 
 		for(i = 321; i <= 324; i++)	// push the response if they are selected
 		{
-			//console.log("LINE 183");
-
 			eyeD = "#" + i.toString();
 			console.log("eyeD = " + eyeD + ", " + typeof eyeD);	// 11:19 data is of string type
 
@@ -411,10 +431,12 @@ $(document).ready(function(){
 		{
 			$("#q2c").hide();	// hide the element on display
 			userData.position = "q3";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2c').hide();
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$('#q2').show();
 		}
 	});
@@ -422,6 +444,7 @@ $(document).ready(function(){
 	$("#q3Prev").click(function(event){
 		 $("#q3").hide();
 		 userData.position = "q2";
+		 localStorage.setItem("lPos", userData.position);// position
 		 $("#q2").show();
 	});
 
@@ -444,6 +467,7 @@ $(document).ready(function(){
 		if(userData.htmlSkill!=null && userData.cssSkill!=null && userData.jsSkill!=null){
 			$("#q3").hide();
 			userData.position = "q2";
+			localStorage.setItem("lPos", userData.position);// position
 			$("#q2").show();
 		}
 		else{
@@ -468,7 +492,14 @@ $(document).ready(function(){
 
 		if(userData.htmlSkill!=null && userData.cssSkill!=null && userData.jsSkill!=null){
 			$("#q3").hide();
+
 			userData.position = "thanks";
+			localStorage.setItem("lPos", userData.position);// position
+
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+			console.log("line 470, FINALLY strUserData = " + strUserData);
+
 			$("#thanks").show();
 		}
 		else{
@@ -479,6 +510,7 @@ $(document).ready(function(){
 	$("#viewAns").click(function(event){
 		$("#thanks").hide();
 		userData.position = "showRes";
+		localStorage.setItem("lPos", userData.position);// position
 		$("#showRes").show();
 	});
 
@@ -486,6 +518,7 @@ $(document).ready(function(){
 		userData.name= userData.email = userData.htmlSkill = userData.jsSkill = userData.cssSkill= '';
 		userData.html = userData.css = userData.js = [];
 		console.log(userData);
+
 		// clear the text in email and email
 		$("#name").val('');
 		$("#exampleInputEmail1").val('');
@@ -498,6 +531,7 @@ $(document).ready(function(){
 
 		$("#thanks").hide();
 		userData.position = "welcome";
+		localStorage.setItem("lPos", userData.position);// position
 		$("#welcome").show();
 	});
 });
