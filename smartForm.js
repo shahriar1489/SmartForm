@@ -18,8 +18,21 @@ var showPage;
 
 $(document).ready(function(){
 
-	//showPage = localStorage.getItem("lPos");
-	//$("#"+showPage).show();
+	console.log("Line 21: lPos = " + localStorage.getItem("lPos") );
+	showPage = localStorage.getItem("lPos");
+	if( (showPage != "welcome"))	// lPos is not the welcome page and
+	{
+		console.log("lObj: "+ localStorage.getItem("lObj"));
+		console.log("showPage " + showPage);
+
+
+		userData = JSON.parse(localStorage.getItem("lObj"));
+		console.log("userData = " + userData);
+
+		showPage = "#" + showPage;	// id convention
+		$('#welcome').hide();
+		$(showPage).show();
+	}
 
 	function validateName(name){
 		var re = /^[A-z ]+$/;	// 15:04
@@ -33,31 +46,27 @@ $(document).ready(function(){
 
 	$("#start_button").click(function(event){
 		$("#welcome").hide();
+		strUserData = null;
 		userData.position = "q1";
 		localStorage.setItem("lPos", userData.position);// position
 		$("#q1").show();
 	});	// 15:24 works
 
 	$("#q1NextButton").click(function(event){
-		strUserData = JSON.stringify(userData);
-		console.log("line 37, INITIALLY strUserData = " + strUserData);
-
-		//$(this).prop('disabled', true);
-
 		if(validateEmail( $("#exampleInputEmail1").val()) && validateName( $("#name").val() ))	// check if both input for name and email are valid
 		{
 			userData.name = $("#name").val();
 			userData.email = $("#exampleInputEmail1").val();
-			console.log("NAME = " + userData.name);
-			console.log("EMAIL = " + userData.email);	// 19:32 works
 
-			//$("#q1NextButton").prop('disabled', false);	// could use DOM here
+			strUserData = JSON.stringify(userData);
+			//console.log("strUserData " + strUserData);
 
-			$("#q1").hide();	// hide the element on display
 			userData.position = "q2";
 			localStorage.setItem("lPos", userData.position);// position
+			localStorage.setItem("lObj", strUserData);
+
+			$("#q1").hide();	// hide the element on display
 			$("#q2").show(); // show the follwing hidden element by-
-			//return true;
 		}
 
 		else{
@@ -71,23 +80,13 @@ $(document).ready(function(){
 
 			else if(!validateName( $("#name").val() ) && validateEmail( $("#exampleInputEmail1").val() ))
 			{
-				//$("#q1NextButton").prop("disabled", true);
 				$("#name").focus();
 				alert("ERROR: Invalid Name Input.");
-				//$("#warningMsg1").innerHTML("ERROR: Invalid Name Input.");
-				//document.getElementById('warningMsg1').innerHTML="ERROR: Invalid Name Input.";
-				//$('#warningMsg1').fadeOut(5000);
-				//document.getElementById('warningMsg1').innerHTML=" ";	// 15:33 empty the content
 			}
 
 			else if(!validateName( $("#name").val() ) && !validateEmail( $("#exampleInputEmail1").val() )){
-				//$("#q1NextButton").prop("disabled", true);
 				$("#name").focus();
 				alert("ERROR: Invalid Name & Email Input.");
-				//$("#warningMsg1").innerHTML("ERROR: Invalid Name & Email Input.");
-				//document.getElementById('warningMsg1').innerHTML = "ERROR: Invalid Name & Email Input.";
-				//$('#warningMsg1').fadeOut(5000);
-				//document.getElementById('warningMsg1').innerHTML = " ";
 			}
 		}
 	});	// 17:17 works
@@ -157,14 +156,20 @@ $(document).ready(function(){
 				 }
 			 }
 		 }
-		 console.log(userData.html);	// 11:50 there is repeat in data storage. cut that off.
+		 //console.log(userData.html);	// 11:50 there is repeat in data storage. cut that off.
 		 console.log(userData.html);
 		 // 18:49 this button will work if and only if there are some responses on record
 		 if( userData.html.length >= 1){
+
+					//console.log("strUserData " + strUserData);
+
 			 // able the button,  followed by
 			 $("#q2a").hide();	// hide the element on display
 			 userData.position = "q2";
 			 localStorage.setItem("lPos", userData.position);// position
+
+			 strUserData = JSON.stringify(userData);
+			 localStorage.setItem("lObj", strUserData);
 			 $("#q2").show(); // show the follwing hidden element by-
 		 }
 	});
@@ -215,14 +220,22 @@ $(document).ready(function(){
 		console.log(userData.html)
 		if( userData.html.length >= 1 && userData.css.length >= 1 && userData.js.length >= 1)	// 16:12 think about this conditional statement
 		{
-			$("#q2a").hide();	// hide the element on display
+
 			userData.position = "q3";
 			localStorage.setItem("lPos", userData.position);// position
+
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+
+			$("#q2a").hide();	// hide the element on display
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
 			$('#q2a').hide();
 			userData.position = "q2";
 			localStorage.setItem("lPos", userData.position);// position
+
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
 			$('#q2').show();
 		}
 	});
@@ -270,10 +283,18 @@ $(document).ready(function(){
 		}
 		console.log(userData.css);	// 11:50 there is repeat in data storage. cut that off.
 		if( userData.css.length >= 1){
+			strUserData = JSON.stringify(userData);
+			console.log("strUserData " + strUserData);
+
 			// able the button,  followed by
-			$("#q2b").hide();	// hide the element on display
 			userData.position = "q2";
 			localStorage.setItem("lPos", userData.position);// position
+
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+
+
+			$("#q2b").hide();	// hide the element on display
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 	});
@@ -323,14 +344,28 @@ $(document).ready(function(){
 		console.log(userData.css);	// 11:50 there is repeat in data storage. cut that off.
 		if( userData.html.length >= 1 && userData.css.length >= 1 && userData.js.length >= 1)	// 16:12 think about this conditional statement
 		{
+
+			strUserData = JSON.stringify(userData);
+			console.log("strUserData " + strUserData);
+
 			$("#q2b").hide();	// hide the element on display
 			userData.position = "q3";
 			localStorage.setItem("lPos", userData.position);// position
+
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
+			strUserData = JSON.stringify(userData);
+			console.log("strUserData " + strUserData);
+
 			$('#q2b').hide();
 			userData.position = "q2";
 			localStorage.setItem("lPos", userData.position);// position
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+
 			$('#q2').show();
 		}
 
@@ -379,10 +414,14 @@ $(document).ready(function(){
 		}
 		console.log(userData.js);	// 11:50 there is repeat in data storage. cut that off.
 		if( userData.html.length >= 1){
+			strUserData = JSON.stringify(userData);
+			console.log("strUserData " + strUserData);
+
 			// able the button,  followed by
 			$("#q2c").hide();	// hide the element on display
 			userData.position = "q2";
 			localStorage.setItem("lPos", userData.position);// position
+			localStorage.setItem("lObj", strUserData);
 			$("#q2").show(); // show the follwing hidden element by-
 		}
 	});	// 19:06 works
@@ -429,22 +468,40 @@ $(document).ready(function(){
 		console.log(userData.js);	// 11:50 there is repeat in data storage. cut that off.
 		if( userData.html.length >= 1 && userData.css.length >= 1 && userData.js.length >= 1)	// 16:12 think about this conditional statement
 		{
+			strUserData = JSON.stringify(userData);
+			console.log("strUserData " + strUserData);
+
 			$("#q2c").hide();	// hide the element on display
 			userData.position = "q3";
 			localStorage.setItem("lPos", userData.position);// position
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+
 			$("#q3").show(); // show the follwing hidden element by-
 		}else{
-			$('#q2c').hide();
+
+
 			userData.position = "q2";
+			strUserData = JSON.stringify(userData);
+			//console.log("strUserData " + strUserData);
 			localStorage.setItem("lPos", userData.position);// position
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+
+			$('#q2c').hide();
 			$('#q2').show();
 		}
 	});
 
 	$("#q3Prev").click(function(event){
-		 $("#q3").hide();
+
 		 userData.position = "q2";
+		 //console.log("strUserData " + strUserData);
 		 localStorage.setItem("lPos", userData.position);// position
+		 localStorage.setItem("lObj", strUserData);
+		 strUserData = JSON.stringify(userData);
+
+		 $("#q3").hide();
 		 $("#q2").show();
 	});
 
@@ -465,9 +522,12 @@ $(document).ready(function(){
 		console.log("jvs skill: " + userData.jsSkill + " " + var3);
 
 		if(userData.htmlSkill!=null && userData.cssSkill!=null && userData.jsSkill!=null){
-			$("#q3").hide();
 			userData.position = "q2";
 			localStorage.setItem("lPos", userData.position);// position
+			strUserData = JSON.stringify(userData);
+			localStorage.setItem("lObj", strUserData);
+ 		  //console.log("strUserData " + strUserData);
+		  $("#q3").hide();
 			$("#q2").show();
 		}
 		else{
@@ -491,15 +551,13 @@ $(document).ready(function(){
 		console.log("jvs skill: " + userData.jsSkill);
 
 		if(userData.htmlSkill!=null && userData.cssSkill!=null && userData.jsSkill!=null){
-			$("#q3").hide();
 
 			userData.position = "thanks";
 			localStorage.setItem("lPos", userData.position);// position
-
 			strUserData = JSON.stringify(userData);
 			localStorage.setItem("lObj", strUserData);
-			console.log("line 470, FINALLY strUserData = " + strUserData);
 
+			$("#q3").hide();
 			$("#thanks").show();
 		}
 		else{
@@ -508,15 +566,19 @@ $(document).ready(function(){
 	});
 
 	$("#viewAns").click(function(event){
-		$("#thanks").hide();
 		userData.position = "showRes";
 		localStorage.setItem("lPos", userData.position);// position
+		strUserData = JSON.stringify(userData);
+		localStorage.setItem("lObj", strUserData);
+
+		$("#thanks").hide();
 		$("#showRes").show();
 	});
 
 	$("#delAns").click(function(event){
 		userData.name= userData.email = userData.htmlSkill = userData.jsSkill = userData.cssSkill= '';
 		userData.html = userData.css = userData.js = [];
+		strUserData = JSON.stringify(userData);
 		console.log(userData);
 
 		// clear the text in email and email
@@ -528,10 +590,12 @@ $(document).ready(function(){
 
 		// uncheck the radio button
 		$('input[type=radio]').prop('checked', false);
-
-		$("#thanks").hide();
 		userData.position = "welcome";
 		localStorage.setItem("lPos", userData.position);// position
+		strUserData = JSON.stringify(userData);
+		localStorage.setItem("lObj", strUserData);
+
+		$("#thanks").hide();
 		$("#welcome").show();
 	});
 });
