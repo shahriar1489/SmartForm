@@ -22,16 +22,31 @@ $(document).ready(function(){
 	showPage = localStorage.getItem("lPos");
 	if( (showPage != "welcome"))	// lPos is not the welcome page and
 	{
-		console.log("lObj: "+ localStorage.getItem("lObj"));
-		console.log("showPage " + showPage);
+		console.log("19:46 lObj: "+ localStorage.getItem("lObj"));
+		console.log("19:46 showPage " + showPage);
 
 
 		userData = JSON.parse(localStorage.getItem("lObj"));
 		console.log("userData = " + userData);
 
-		showPage = "#" + showPage;	// id convention
+		var tempshowPage = "#" + showPage;	// id convention
 		$('#welcome').hide();
-		$(showPage).show();
+		$(tempshowPage).show();
+	}
+
+	//console.log("19L48 showPage = " + showPage);
+	if( (showPage == "showRes") )	// lPos is not the welcome page and
+	{
+		//console.log("lObj: "+ localStorage.getItem("lObj"));
+		//console.log("showPage " + showPage);
+
+
+		//userData = JSON.parse(localStorage.getItem("lObj"));
+		//console.log("userData = " + userData);
+
+		showPage = "#" + showPage;	// id convention
+		$('#welcome').show();
+		$(showPage).hide();
 	}
 
 	function validateName(name){
